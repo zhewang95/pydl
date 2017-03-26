@@ -30,7 +30,7 @@ class Accuracy:
         pass
 
     def forward(self, vin, lable):
-        self.accuracy = [np.argmax(v, axis=1) == l for v, l in zip(vin, lable)]
+        self.accuracy = np.sum(np.argmax(vin, axis=1), axis=1) == lable
         self.accuracy = np.sum(self.accuracy)
         print 'accuracy:', 1.0 * self.accuracy / len(vin)
 

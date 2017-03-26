@@ -8,7 +8,7 @@ from solvers.solvers import NaiveSGD
 
 if __name__ == '__main__':
     ls = []
-    ls.append(PickleData('data/test1.pkl', 256))
+    ls.append(PickleData('data/test2.pkl', 256))
     ls.append(FullyConnect(289, 100, 0.01))
     ls.append(ReLU())
     ls.append(FullyConnect(100, 26, 0.01))
