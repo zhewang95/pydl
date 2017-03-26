@@ -1,6 +1,7 @@
-# deep learning framework implemented by python
-`pydl` is built for understanding dl. It may not be a good idea to use
- this toy framework for solving your problem in real environment.
+# pydl: deep learning framework implemented by python
+`pydl` is built for understanding dl. Most of the calculations make
+ use of numpy. It may not be a good idea to use this toy framework 
+ for solving your problem in real environment.
 ### layers
 #### data
 - [x] PickleData
