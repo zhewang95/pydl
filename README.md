@@ -10,5 +10,6 @@
 - [x] SoftMaxLoss
 #### misc
 - [x] FullyConnect
+- [x] Accuracy
 ###solvers
 - [x] NaiveSGD

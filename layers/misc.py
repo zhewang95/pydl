@@ -20,7 +20,19 @@ class FullyConnect:
         ddw = [np.dot(dd, v.T) for dd, v in zip(d, self.vin)]
         self.dw = np.sum(ddw, axis=0) / self.vin.shape[0]
         self.dvin = np.array([np.dot(self.weights.T, dd) for dd in d])
-        #print self.weights[0][0],self.dw[0][0]*self.lr,d[0][0]
         self.weights -= self.lr * self.dw
-        self.bias -= self.lr * np.sum(d,axis=0)
+        self.bias -= self.lr * np.sum(d, axis=0)
         return self.dvin
+
+
+class Accuracy:
+    def __init__(self):
+        pass
+
+    def forward(self, vin, lable):
+        self.accuracy = [np.argmax(v, axis=1) == l for v, l in zip(vin, lable)]
+        self.accuracy = np.sum(self.accuracy)
+        print 'accuracy:', 1.0 * self.accuracy / len(vin)
+
+    def backward(self):
+        raise Exception('Accuracy has no backward')
