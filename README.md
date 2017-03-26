@@ -23,6 +23,7 @@
 #### misc
 - [x] FullyConnect
 - [x] Accuracy
+- [ ] Dropout
 ### solvers
 - [x] NaiveSGD
 - [ ] Adam
