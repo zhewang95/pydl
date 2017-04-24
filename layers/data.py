@@ -6,26 +6,27 @@ import numpy as np
 
 class PickleData:
     def __init__(self, source, batch_size):
+        self.type = 'data'
         with open(source) as f:
             data = cPickle.load(f)
-        self.data = data['data']
-        self.labels = data['labels']
+        self.data = data['data'] - 0.5
+        self.labels = data['label']
         self.batch_size = batch_size
         self.pos = 0
         self.l = len(self.data)
         assert (self.l > 0)
         assert (self.l == len(self.labels))
-        #assert (len(self.data.shape) == 3)
+        # assert (len(self.data.shape) == 3)
 
     def forward(self):
         front = self.pos
         if self.pos + self.batch_size >= self.l:
             rear = self.l
             self.pos = 0
-            ran=range(self.l)
+            ran = range(self.l)
             np.random.shuffle(ran)
-            self.data=self.data[ran]
-            self.labels=self.labels[ran]
+            self.data = self.data[ran]
+            self.labels = self.labels[ran]
         else:
             rear = self.pos + self.batch_size
             self.pos += self.batch_size

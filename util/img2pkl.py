@@ -7,7 +7,7 @@ import numpy as np
 
 def main():
     if len(sys.argv) < 2:
-        print'eg: python img2pkl.py list.txt dst.pkl pardir\n' \
+        print'eg: python img2pkl.py list.txt data.pkl pardir\n' \
              'convert image to pickle\n' \
              'all the args are optional and all the imgs must have same size/channels\n\n'
         return

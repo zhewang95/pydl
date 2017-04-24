@@ -5,6 +5,7 @@ import numpy as np
 
 class FullyConnect:
     def __init__(self, l_in, l_out, lr, xavier=True):
+        self.type = 'fullyconnect'
         self.weights = np.random.randn(l_out, l_in)
         if xavier:
             self.weights /= np.sqrt(l_in)  # todo: read the Xavier paper
@@ -27,7 +28,7 @@ class FullyConnect:
 
 class Accuracy:
     def __init__(self):
-        pass
+        self.type = 'accuracy'
 
     def forward(self, vin, lable):
         self.accuracy = np.sum(np.argmax(vin, axis=1), axis=1) == lable

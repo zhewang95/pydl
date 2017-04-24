@@ -7,14 +7,15 @@ from layers.loss import SoftMaxLoss, CrossEntropyLoss
 from solvers.solvers import NaiveSGD
 
 if __name__ == '__main__':
-    ls = []
-    ls.append(PickleData('data/test2.pkl', 256))
-    ls.append(FullyConnect(289, 100, 0.01))
-    ls.append(ReLU())
-    ls.append(FullyConnect(100, 26, 0.01))
-    ls.append(ReLU())
-    ls.append(SoftMaxLoss())
+    network = []
+    network.append(PickleData('data/train.pkl', 512))
+    network.append(PickleData('data/validate.pkl', 50000))
+    network.append(FullyConnect(289, 100, 0.03))
+    network.append(Sigmoid())
+    network.append(FullyConnect(100, 26, 0.03))
+    network.append(Sigmoid())
+    network.append(SoftMaxLoss())
     accu = Accuracy()
 
-    trainer = NaiveSGD(ls, 1000, accu)
+    trainer = NaiveSGD(network, 1000, accu)
     trainer.train()

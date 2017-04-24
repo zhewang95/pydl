@@ -2,6 +2,6 @@
 .idea/
 *.pyc
 pic/
-data/
+data/*.pkl
 *.txt
 

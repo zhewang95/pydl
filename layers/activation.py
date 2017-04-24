@@ -2,9 +2,10 @@
 # encoding=utf-8
 import numpy as np
 
+
 class ReLU:
     def __init__(self):
-        pass
+        self.type = 'relu'
 
     def forward(self, vin):
         self.vin = vin
@@ -17,7 +18,7 @@ class ReLU:
 
 class Sigmoid:
     def __init__(self):
-        pass
+        self.type = 'sigmoid'
 
     def forward(self, vin):
         self.vin = vin
@@ -25,27 +26,29 @@ class Sigmoid:
         return self.vout
 
     def backward(self, d):
-        e=np.exp(-self.vin)
-        self.dvin= d*(-e)/np.square(1+e)
+        e = np.exp(-self.vin)
+        self.dvin = d * (-e) / np.square(1 + e)
         return self.dvin
+
 
 class TanH:
     def __init__(self):
-        pass
+        self.type = 'tanh'
 
-    def forward(self,vin):
-        self.vin=vin
-        evinp=np.exp(vin)
-        evinn=np.exp(-vin)
-        self.vout=(evinp-evinn)/(evinp+evinn)
+    def forward(self, vin):
+        self.vin = vin
+        evinp = np.exp(vin)
+        evinn = np.exp(-vin)
+        self.vout = (evinp - evinn) / (evinp + evinn)
         return self.vout
 
-    def backward(self,d):
-        edp=np.exp(d)
-        edn=np.exp(-d)
-        tanh=(edp-edn)/(edp+edn)
-        self.dvin=1-tanh*tanh
+    def backward(self, d):
+        edp = np.exp(d)
+        edn = np.exp(-d)
+        tanh = (edp - edn) / (edp + edn)
+        self.dvin = 1 - tanh * tanh
         return self.dvin
+
 
 def test():
     relu = ReLU()

@@ -5,7 +5,7 @@ import numpy as np
 
 class SoftMaxLoss:
     def __init__(self):
-        pass
+        self.type = 'loss'
 
     def forward(self, vin, lable):
         expsum = np.sum(np.exp(vin), axis=1)
@@ -23,7 +23,7 @@ class SoftMaxLoss:
 
 class CrossEntropyLoss:
     def __init__(self):
-        pass
+        self.type = 'loss'
 
     def forward(self, vin, lable):
         self.vin = vin
