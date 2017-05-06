@@ -37,7 +37,7 @@ class SoftMaxLoss:
         self.loss = np.sum(self.loss) / label.shape[0]
         for layer in hidden_layers:
             if layer.type in ['fullyconnect']:
-                self.loss += self.lamb * np.sum(np.square(layer.weights)) / 2
+                self.loss += self.lamb * np.sum(np.square(layer.weights)) / 2 / x.shape[0]
         return self.loss
 
     def backward(self):
@@ -63,7 +63,7 @@ class CrossEntropyLoss:
         self.loss = np.sum(self.loss) / x.shape[0]
         for layer in hidden_layers:
             if layer.type in ['fullyconnect']:
-                self.loss += self.lamb * np.sum(np.square(layer.weights)) / 2
+                self.loss += self.lamb * np.sum(np.square(layer.weights)) / 2 / x.shape[0]
         return self.loss
 
     def backward(self):
@@ -90,7 +90,7 @@ class SigmoidCrossEntropyLoss:
         self.loss = np.sum(self.loss) / x.shape[0]
         for layer in hidden_layers:
             if layer.type in ['fullyconnect']:
-                self.loss += self.lamb * np.sum(np.square(layer.weights)) / 2
+                self.loss += self.lamb * np.sum(np.square(layer.weights)) / 2 / x.shap[0]
         return self.loss
 
     def backward(self):

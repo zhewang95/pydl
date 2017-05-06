@@ -14,8 +14,8 @@ if __name__ == '__main__':
     network.append(Sigmoid())
     network.append(FullyConnect(20, 26))
     network.append(Sigmoid())
-    network.append(CrossEntropyLoss())
+    network.append(QuadraticLoss())
     accuracy = Accuracy()
 
-    trainer = NaiveSGD(network, 100, accuracy=accuracy, lr=1, lamb=0.0)
+    trainer = NaiveSGD(network, 100, accuracy=accuracy, lr=1000, lamb=0.0001)
     trainer.train()
