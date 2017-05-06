@@ -4,36 +4,38 @@ import numpy as np
 
 
 class FullyConnect:
-    def __init__(self, l_in, l_out, lr, xavier=True):
+    def __init__(self, l_in, l_out, relu=False):
         self.type = 'fullyconnect'
         self.weights = np.random.randn(l_out, l_in)
-        if xavier:
-            self.weights /= np.sqrt(l_in)  # todo: read the Xavier paper
+        self.weights /= np.sqrt(l_in )  # Xavier and ReLU(KaiMing He) paper
+        if relu:
+            self.weights *= np.sqrt(2)
         self.bias = np.random.randn(l_out, 1)
-        self.lr = lr
+        self.lr = 0  # 参数由solver统一设定
+        self.lamb = 0
 
-    def forward(self, vin):
-        self.vin = vin
-        self.vout = np.array([np.dot(self.weights, v) + self.bias for v in vin])
-        return self.vout
+    def forward(self, x):
+        self.x = x
+        self.y = np.array([np.dot(self.weights, xx) + self.bias for xx in x])
+        return self.y
 
     def backward(self, d):
-        ddw = [np.dot(dd, v.T) for dd, v in zip(d, self.vin)]
-        self.dw = np.sum(ddw, axis=0) / self.vin.shape[0]
-        self.dvin = np.array([np.dot(self.weights.T, dd) for dd in d])
-        self.weights -= self.lr * self.dw
-        self.bias -= self.lr * np.sum(d, axis=0)
-        return self.dvin
+        ddw = [np.dot(dd, v.T) for dd, v in zip(d, self.x)]
+        self.dw = np.sum(ddw, axis=0) / self.x.shape[0]
+        self.dx = np.array([np.dot(self.weights.T, dd) for dd in d])
+        self.weights -= self.lr * (self.dw + self.lamb * self.weights / self.x.shape[0])
+        self.bias -= self.lr * np.sum(d, axis=0) / self.x.shape[0]
+        return self.dx
 
 
 class Accuracy:
     def __init__(self):
         self.type = 'accuracy'
 
-    def forward(self, vin, lable):
-        self.accuracy = np.sum(np.argmax(vin, axis=1), axis=1) == lable
+    def forward(self, x, lable):
+        self.accuracy = np.sum(np.argmax(x, axis=1), axis=1) == lable
         self.accuracy = np.sum(self.accuracy)
-        print 'accuracy:', 1.0 * self.accuracy / len(vin)
+        print 'accuracy:', 1.0 * self.accuracy / len(x)
 
     def backward(self):
         raise Exception('Accuracy has no backward')

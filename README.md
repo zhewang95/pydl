@@ -5,12 +5,11 @@
 ### layers
 #### data
 - [x] PickleData
-- [ ] LmdbData
 - [ ] Normalization
 #### activation
 - [x] ReLU
-- [ ] Sigmoid
-- [ ] TanH
+- [x] Sigmoid
+- [x] TanH
 - [ ] SoftMax
 #### cnn
 - [ ] Convolution
@@ -20,7 +19,8 @@
 - [ ] LSTM
 #### loss
 - [x] SoftMaxLoss
-- [ ] CrossEntropyLoss
+- [x] CrossEntropyLoss
+- [x] SigmoidCrossEntropyLoss
 #### misc
 - [x] FullyConnect
 - [x] Accuracy

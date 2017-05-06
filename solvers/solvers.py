@@ -2,7 +2,10 @@
 # encoding=utf-8
 
 class NaiveSGD:
-    def __init__(self, layers, epochs, accuracy):
+    def __init__(self, layers, epochs, accuracy, lr, lamb=0):
+        for l in layers:  # 设置学习速率和正则化参数
+            l.lr = lr
+            l.lamb = lamb
         self.dlayer = layers[0]
         self.llayer = layers[-1]
         if layers[1].type != 'data':
@@ -25,6 +28,9 @@ class NaiveSGD:
             d = l.backward(d)
 
     def train(self):
+        data,label,_=self.tdlayer.forward() #训练之前进行测试
+        data=self.forward(data)
+        self.accuracy.forward(data,label)
         for i in xrange(self.epochs):
             print 'epoch:', i
             loss = 0.0
@@ -32,8 +38,8 @@ class NaiveSGD:
             while True:
                 data, label, pos = self.dlayer.forward()
                 data = self.forward(data)
-                l = self.llayer.forward(data, label)
-
+                l = self.llayer.forward(data, label, self.hidden_layers)
+                #print l
                 loss += l
                 count += 1
 
