@@ -5,12 +5,10 @@
 ### layers
 #### data
 - [x] PickleData
-- [ ] Normalization
 #### activation
 - [x] ReLU
 - [x] Sigmoid
 - [x] TanH
-- [ ] SoftMax
 #### cnn
 - [ ] Convolution
 - [ ] Pooling
@@ -24,7 +22,9 @@
 #### misc
 - [x] FullyConnect
 - [x] Accuracy
+- [x] SoftMax
 - [ ] Dropout
+- [ ] Normalization
 ### solvers
 - [x] NaiveSGD
 - [ ] Adam

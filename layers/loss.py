@@ -24,15 +24,16 @@ class QuadraticLoss:
         return self.dx
 
 
-class SoftMaxLoss:
+class SoftmaxLoss:
     def __init__(self):
         self.type = 'loss'
         self.lamb = 0
 
     def forward(self, x, label, hidden_layers):
-        expsum = np.sum(np.exp(x), axis=1)
+        exp = np.exp(x)
+        expsum = np.sum(exp, axis=1)
         self.label = label
-        self.prob = np.array([np.exp(v) / s for v, s in zip(x, expsum)])
+        self.prob = np.array([v / s for v, s in zip(exp, expsum)])
         self.loss = np.nan_to_num(-np.log(np.array([p[i] for p, i in zip(self.prob, label)])))
         self.loss = np.sum(self.loss) / label.shape[0]
         for layer in hidden_layers:
@@ -90,7 +91,7 @@ class SigmoidCrossEntropyLoss:
         self.loss = np.sum(self.loss) / x.shape[0]
         for layer in hidden_layers:
             if layer.type in ['fullyconnect']:
-                self.loss += self.lamb * np.sum(np.square(layer.weights)) / 2 / x.shap[0]
+                self.loss += self.lamb * np.sum(np.square(layer.weights)) / 2 / x.shape[0]
         return self.loss
 
     def backward(self):
@@ -99,7 +100,7 @@ class SigmoidCrossEntropyLoss:
 
 
 def test():
-    sml = SoftMaxLoss()
+    sml = SoftmaxLoss()
     print sml.forward(np.array([[[2], [1]]]), np.array([0]))
     print sml.backward()
 

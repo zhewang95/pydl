@@ -7,7 +7,7 @@ class FullyConnect:
     def __init__(self, l_in, l_out, relu=False):
         self.type = 'fullyconnect'
         self.weights = np.random.randn(l_out, l_in)
-        self.weights /= np.sqrt(l_in )  # Xavier and ReLU(KaiMing He) paper
+        self.weights /= np.sqrt(l_in)  # Xavier and ReLU(KaiMing He) paper
         if relu:
             self.weights *= np.sqrt(2)
         self.bias = np.random.randn(l_out, 1)
@@ -39,3 +39,18 @@ class Accuracy:
 
     def backward(self):
         raise Exception('Accuracy has no backward')
+
+
+class Softmax:
+    def __init__(self):
+        self.type = 'softmax'
+
+    def forward(self, x):
+        self.x = x
+        exp = np.exp(x)
+        expsum = np.sum(exp, axis=1)
+        self.y = np.array([a / b for a, b in zip(exp, expsum)])
+        return self.y
+
+    def backward(self):
+        raise Exception('Softmax layer can not back-propagate')
